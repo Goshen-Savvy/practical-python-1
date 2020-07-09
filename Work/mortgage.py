@@ -1,5 +1,6 @@
 # mortgage.py
 #
+<<<<<<< HEAD
 
 # Exercise 1.7
 
@@ -31,3 +32,6 @@ print('Total paid', round(total_paid, 2))
 print('Months', month)
 #f'Total Paid{round(total_paid, 2)}
 # f' Months{'month'}' 
+=======
+# Exercise 1.7
+>>>>>>> 3d86b44b3fb581e19bf61811418cb925d3f09616

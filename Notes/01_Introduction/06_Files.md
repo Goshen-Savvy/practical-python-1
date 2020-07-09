@@ -105,7 +105,11 @@ First, try reading the entire file all at once as a big string:
 
 ```python
 >>> with open('Data/portfolio.csv', 'rt') as f:
+<<<<<<< HEAD
         
+=======
+        data = f.read()
+>>>>>>> 3d86b44b3fb581e19bf61811418cb925d3f09616
 
 >>> data
 'name,shares,price\n"AA",100,32.20\n"IBM",50,91.10\n"CAT",150,83.44\n"MSFT",200,51.23\n"GE",95,40.37\n"MSFT",50,65.10\n"IBM",100,70.44\n'
