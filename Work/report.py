@@ -1,5 +1,4 @@
 # report.py
-
 import csv
 
 def read_portfolio(filename):
@@ -13,10 +12,11 @@ def read_portfolio(filename):
         headers = next(rows)
 
         for row in rows:
+            record = dict(zip(headers, row))
             stock = {
-                 'name'   : row[0],
-                 'shares' : int(row[1]),
-                 'price'   : float(row[2])
+                 'name'   : record['name'],
+                 'shares' : int(record['shares']),
+                 'price'   : float(record['price'])
             }
             portfolio.append(stock)
 
@@ -45,19 +45,19 @@ def make_report_data(portfolio, prices):
     rows = []
     for stock in portfolio:
         current_price = prices[stock['name']]
-        change = current_price - stock['price']
-        summary = (stock['name'], stock['shares'], current_price, change)
+        change        = current_price - stock['price']
+        summary       = (stock['name'], stock['shares'], current_price, change)
         rows.append(summary)
     return rows
         
 # Read data files and create the report data        
 
 portfolio = read_portfolio('Data/portfolio.csv')
-prices = read_prices('Data/prices.csv')
+prices    = read_prices('Data/prices.csv')
 
 # Generate the report data
 
-report = make_report_data(portfolio, prices)
+report    = make_report_data(portfolio, prices)
 
 # Output the report
 headers = ('Name', 'Shares', 'Price', 'Change')
