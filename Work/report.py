@@ -14,9 +14,9 @@ def read_portfolio(filename):
         for row in rows:
             record = dict(zip(headers, row))
             stock = {
-                 'name'   : record['name'],
-                 'shares' : int(record['shares']),
-                 'price'   : float(record['price'])
+                'name' : record['name'],
+                'shares' : int(record['shares']),
+                'price' : float(record['price'])
             }
             portfolio.append(stock)
 
@@ -37,7 +37,7 @@ def read_prices(filename):
 
     return prices
 
-def make_report_data(portfolio, prices):
+def make_report_data(portfolio,prices):
     '''
     Make a list of (name, shares, price, change) tuples given a portfolio list
     and prices dictionary.
@@ -45,23 +45,33 @@ def make_report_data(portfolio, prices):
     rows = []
     for stock in portfolio:
         current_price = prices[stock['name']]
-        change        = current_price - stock['price']
-        summary       = (stock['name'], stock['shares'], current_price, change)
+        change = current_price - stock['price']
+        summary = (stock['name'], stock['shares'], current_price, change)
         rows.append(summary)
     return rows
-        
-# Read data files and create the report data        
 
-portfolio = read_portfolio('Data/portfolio.csv')
-prices    = read_prices('Data/prices.csv')
+def print_report(reportdata):
+    '''
+    Print a nicely formated table from a list of (name, shares, price, change) tuples.
+    '''
+    headers = ('Name','Shares','Price','Change')
+    print('%10s %10s %10s %10s' % headers)
+    print(('-'*10 + ' ')*len(headers))
+    for row in reportdata:
+        print('%10s %10d %10.2f %10.2f' % row)
 
-# Generate the report data
+def portfolio_report(portfoliofile,pricefile):        
+    '''
+    Make a stock report given portfolio and price data files.
+    '''
+    # Read data files 
+    portfolio = read_portfolio(portfoliofile)
+    prices = read_prices(pricefile)
 
-report    = make_report_data(portfolio, prices)
+    # Create the report data
+    report = make_report_data(portfolio,prices)
 
-# Output the report
-headers = ('Name', 'Shares', 'Price', 'Change')
-print('%10s %10s %10s %10s' % headers)
-print(('-' * 10 + ' ') * len(headers))
-for row in report:
-    print('%10s %10d %10.2f %10.2f' % row)
+    # Print it out
+    print_report(report)
+
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
