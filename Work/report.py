@@ -38,7 +38,7 @@ def print_report(reportdata):
     for row in reportdata:
         print('%10s %10d %10.2f %10.2f' % row)
 
-def portfolio_report(portfoliofile,pricefile):        
+def portfolio_report(portfoliofile, pricefile):        
     '''
     Make a stock report given portfolio and price data files.
     '''
@@ -52,4 +52,11 @@ def portfolio_report(portfoliofile,pricefile):
     # Print it out
     print_report(report)
 
-portfolio_report('Data/portfolio.csv','Data/prices.csv')
+def main(args):
+    if len(args) != 3:
+        raise SystemExit('Usage: %s portfile pricefile' % args[0])
+    portfolio_report(args[1], args[2])
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
